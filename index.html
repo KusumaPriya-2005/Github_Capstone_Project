@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A simple task list saved in this browser.">
+    <title>Task manager</title>
+    <link rel="stylesheet" href="./styles/app.css">
+    <script type="module" src="./src/main.js"></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="page-header">
+        <p class="eyebrow">Your personal task list</p>
+        <h1>Task manager</h1>
+        <p>Add tasks, make progress, and keep your list in this browser.</p>
+      </header>
+
+      <section class="panel" aria-labelledby="add-heading">
+        <h2 id="add-heading">Add a task</h2>
+        <form id="add-form" novalidate>
+          <label for="new-task-title">Task title</label>
+          <div class="add-controls">
+            <input id="new-task-title" name="title" type="text"
+              aria-describedby="add-error" autocomplete="off"
+              data-focus-key="add-title">
+            <button class="button button-primary" type="submit">Add task</button>
+          </div>
+          <p class="field-error" id="add-error"></p>
+        </form>
+      </section>
+
+      <section class="panel task-panel" aria-labelledby="tasks-heading">
+        <div class="section-heading">
+          <div>
+            <h2 id="tasks-heading">Tasks</h2>
+            <p class="storage-status" id="storage-status" role="status"
+              aria-live="polite"></p>
+          </div>
+          <button id="replace-data" class="button button-secondary" type="button" hidden>
+            Replace unreadable saved data…
+          </button>
+        </div>
+
+        <nav class="filters" aria-label="Filter tasks">
+          <button class="filter-button" type="button" data-filter="all"
+            data-focus-key="filter-all" aria-pressed="true">All</button>
+          <button class="filter-button" type="button" data-filter="pending"
+            data-focus-key="filter-pending" aria-pressed="false">Pending</button>
+          <button class="filter-button" type="button" data-filter="completed"
+            data-focus-key="filter-completed" aria-pressed="false">Completed</button>
+        </nav>
+
+        <p id="list-message" class="list-message" role="status"></p>
+        <ul id="task-list" class="task-list" aria-label="Task list"></ul>
+      </section>
+
+      <p id="announcements" class="visually-hidden" role="status"
+        aria-live="polite" aria-atomic="true"></p>
+    </main>
+
+    <dialog id="delete-dialog" aria-labelledby="delete-dialog-title"
+      aria-describedby="delete-dialog-message">
+      <form method="dialog" class="dialog-content">
+        <h2 id="delete-dialog-title">Delete this task?</h2>
+        <p id="delete-dialog-message"></p>
+        <div class="dialog-actions">
+          <button class="button button-secondary" type="submit" value="cancel"
+            data-dialog-action="cancel-delete">Cancel</button>
+          <button class="button button-danger" type="submit" value="confirm"
+            data-dialog-action="confirm-delete">Delete task</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="replace-dialog" aria-labelledby="replace-dialog-title"
+      aria-describedby="replace-dialog-message">
+      <form method="dialog" class="dialog-content">
+        <h2 id="replace-dialog-title">Replace unreadable saved data?</h2>
+        <p id="replace-dialog-message">
+          This permanently replaces the unreadable saved data with the task
+          list currently in this session. This cannot be undone. Continue only
+          if you accept losing the unreadable saved copy.
+        </p>
+        <div class="dialog-actions">
+          <button class="button button-secondary" type="submit" value="cancel"
+            data-dialog-action="cancel-replace">Keep saved data</button>
+          <button class="button button-danger" type="submit" value="confirm"
+            data-dialog-action="confirm-replace">Replace saved data</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>
